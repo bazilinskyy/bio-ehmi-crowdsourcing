@@ -102,13 +102,13 @@ for (var i = 1; i <= n_videos * n_repeat; i++) {
 	}
     video_stimuli.push({
         type: 'video-keyboard-multiple-responses-release',
-        choices: ['F'],
         autoplay: true,
         controls: false,
         width: 1280,
         height: 720,
         choices: ['F'],
-        timeline: timeline,
+        // timeline: timeline,
+        sources: [video_pfefix + video_ids[i] + '.mp4'],
         prompt: '<p>Press and HOLD \'F\' when you feel safe to cross.</p>',
         on_finish: function(data) {
             jsPsych.data.addDataToLastTrial({
