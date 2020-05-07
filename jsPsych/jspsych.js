@@ -2389,7 +2389,10 @@ jsPsych.pluginAPI = (function() {
         console.log(video)
         var preloaded = [];
         for (var i = 0; i < video.length; i++) {
+            console.log(preloaded.includes(video[i]));
+            console.log(preloaded)
             if (preloaded.includes(video[i])===false) {  // check if video was already preloaded
+              console.log('load');
               preload_video(video[i]);
             } 
             preloaded.push(video[i]);
