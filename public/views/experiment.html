@@ -15,7 +15,14 @@
   </body>
   <script>
 
-   /**
+// Constants
+var n_videos = 12; // number of videos
+var n_repeat = 5; // number of repeats of each condition
+var n_videos_per_block = 5; // number of videos in each block
+var video_pfefix = 'videos/video_'; // prefix for videos
+var image_pfefix = 'img/'; // prefix for images
+
+ /**
  * Returns a random integer between min (inclusive) and max (inclusive).
  * The value is no lower than min (or the next integer greater than min
  * if min isn't an integer) and no greater than max (or the next integer
@@ -28,19 +35,9 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-var getUrlParameter = function getUrlParameter(sParam) {
-    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-        sURLVariables = sPageURL.split('&'),
-        sParameterName,
-        i;
-    for (i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split('=');
-        if (sParameterName[0] === sParam) {
-            return sParameterName[1] === undefined ? true : sParameterName[1];
-        }
-    }
-};
-
+/**
+ * Get finish code for the worker.
+ */
 function getFinishCode() {
     var timestamp = window.performance.timing.navigationStart + window.performance.now();
     var current_time = Math.round(timestamp);
@@ -50,17 +47,6 @@ function getFinishCode() {
 }
 
 var finish_code = getFinishCode();
-
-/* define instructions block */
-var instructions_block = {
-    type: 'html-keyboard-response',
-    stimulus: '<p>In this experiment, you will view 60 videos of cars with eHMI concepts. Each time you feel safe to cross the road in front of the car. Each video will starr from a black screen. When you see the black screen please do the following: (1) Press key \'F\'. (2) Keep pressing the key as long as you feel safe during the video. (3) When you do not feel safe to cross anymore, release the key. The video will not load unless you press the key \'F\'. After each 5 videos you will be able to take a small break. Press \'C\' to start the first video.</p>',
-    choices: ['C'],
-};
-
-/* define test block */
-var between_blocks = []; // instructions between blocks
-var video_stimuli = []; // blocks with videos
 
 /**
  * Shuffles array in place.
@@ -77,32 +63,28 @@ function shuffle(a) {
     return a;
 }
 
-// create array of video_ids, remove 0th id, shuffle
-var n_videos = 12; // number of videos
-var n_repeat = 5; // number of repeats of each condition
-var n_videos_per_block = 5; // number of videos in each block
+var video_ids = [];  // IDs of videos in stimuli
+var between_blocks = []; // instructions between blocks
+var video_stimuli = []; // blocks with videos
 
-var video_ids = [];
+// define instructions block
+var instructions_block = {
+    type: 'html-keyboard-response',
+    stimulus: '<p>In this experiment, you will view 60 videos of cars with eHMI concepts. Each time you feel safe to cross the road in front of the car. Each video will starr from a black screen. When you see the black screen please do the following: (1) Press key \'F\'. (2) Keep pressing the key as long as you feel safe during the video. (3) When you do not feel safe to cross anymore, release the key. The video will not load unless you press the key \'F\'. After each 5 videos you will be able to take a small break. Press \'C\' to start the first video.</p>',
+    choices: ['C'],
+};
 
-video_pfefix = 'videos/video_';
-image_pfefix = 'img/';
-
+// populate array with video IDs
 for (var i = 1; i <= n_videos; i++) {
 	for (var j = 0; j < n_videos_per_block; j++) {
 		video_ids.push(i);
 	}
 }
+// shuffle array with video IDs
 video_ids = shuffle(video_ids);
-
 
 // build array with videos with stimuli
 for (var i = 1; i <= n_videos * n_videos_per_block; i++) {
-	timeline = {
-		sources: [video_pfefix + video_ids[i] + '.mp4'],
-		on_finish: function(data){
-			jsPsych.data.addDataToLastTrial({worker_code: finish_code});
-		}
-	}
     video_stimuli.push({
         type: 'video-keyboard-multiple-responses-release',
         autoplay: true,
@@ -110,7 +92,6 @@ for (var i = 1; i <= n_videos * n_videos_per_block; i++) {
         width: 1280,
         height: 720,
         choices: ['F'],
-        // timeline: timeline,
         sources: [video_pfefix + video_ids[i] + '.mp4'],
         prompt: '<p>Press and HOLD \'F\' when you feel safe to cross.</p>',
         on_finish: function(data) {
@@ -121,6 +102,7 @@ for (var i = 1; i <= n_videos * n_videos_per_block; i++) {
     });
 }
 
+// black image to be added before each video
 var image_block = {
     type: 'html-keyboard-response',
     stimulus: '<img src=\'' + image_pfefix + 'black_frame.jpg\'/>',
@@ -137,6 +119,7 @@ for (var i = 1; i <= n_videos * n_repeat / n_videos_per_block - 1; i++) {
     });
 }
 
+// block for sending data
 var save_data_block = {
     type: 'call-function',
     func: function() {
@@ -160,7 +143,7 @@ console.log(video_ids);
 console.log(between_blocks);
 console.log(video_stimuli);
 
-/* create experiment timeline array */
+// create experiment timeline array
 var timeline = [];
 timeline.push(instructions_block);
 // iterate over blocks
@@ -173,20 +156,11 @@ for (var i = 0; i < n_videos * n_repeat / n_videos_per_block; i++) {
     }
     // save data
     timeline.push(save_data_block);
-    // don't add between block after the last trial
+    // don't add the between block after the last trial
     if (i != n_videos * n_repeat / n_videos_per_block - 1) {
 	    timeline.push(between_blocks[i]);
 	}
 }
-
-/* MTurk information */
-var turkInfo = jsPsych.turk.turkInfo();
-if (turkInfo.previewMode && !turkInfo.outsideTurk) {
-    worker_id = turkInfo.workerId;
-} else {
-    worker_id = String(Date.now());
-}
-timestamp = String(Date.now());
 
 console.log(timeline);
 
