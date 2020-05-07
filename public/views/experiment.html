@@ -84,10 +84,8 @@ var n_videos_per_block = 5; // number of videos in each block
 
 var video_ids = [];
 
-for (var i = 0; i <= n_repeat; i++) {
-    for (var j = 1; j <= n_videos; j++) {
-        video_ids.push(i);
-    }
+for (var i = 0; i <= n_repeat * n_videos; i++) {
+	video_ids.push(i);
 }
 video_ids = shuffle(video_ids);
 video_pfefix = 'videos/video_';
