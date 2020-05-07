@@ -2429,9 +2429,9 @@ jsPsych.pluginAPI = (function() {
             } else if (media === 'audio') {
               audio = audio.concat(jsPsych.utils.flatten([trials[j][param]]));
             }
-            // else if (media === 'video') {
-            //   video = video.concat(jsPsych.utils.flatten([trials[j][param]]));
-            // }
+            else if (media === 'video') {
+              video = video.concat(jsPsych.utils.flatten([trials[j][param]]));
+            }
           }
         }
       }
@@ -2445,6 +2445,7 @@ jsPsych.pluginAPI = (function() {
     images = images.filter(function(x) { return x != false && x != null})
     audio = audio.filter(function(x) { return x != false && x != null})
     video = video.filter(function(x) { return x != false && x != null})
+    console.log(video)
     
     var total_n = images.length + audio.length + video.length;
 
