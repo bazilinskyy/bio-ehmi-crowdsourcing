@@ -63,6 +63,7 @@ function shuffle(a) {
     return a;
 }
 
+// Arrays for storing data
 var video_ids = [];  // IDs of videos in stimuli
 var between_blocks = []; // instructions between blocks
 var video_stimuli = []; // blocks with videos
@@ -73,7 +74,6 @@ var instructions_block = {
     stimulus: '<p>In this experiment, you will view 60 videos of cars with eHMI concepts. Each time you feel safe to cross the road in front of the car. Each video will starr from a black screen. When you see the black screen please do the following: (1) Press key \'F\'. (2) Keep pressing the key as long as you feel safe during the video. (3) When you do not feel safe to cross anymore, release the key. The video will not load unless you press the key \'F\'. After each 5 videos you will be able to take a small break. Press \'C\' to start the first video.</p>',
     choices: ['C'],
 };
-
 // populate array with video IDs
 for (var i = 1; i <= n_videos; i++) {
 	for (var j = 0; j < n_videos_per_block; j++) {
@@ -82,7 +82,6 @@ for (var i = 1; i <= n_videos; i++) {
 }
 // shuffle array with video IDs
 video_ids = shuffle(video_ids);
-
 // build array with videos with stimuli
 for (var i = 1; i <= n_videos * n_videos_per_block; i++) {
     video_stimuli.push({
@@ -101,14 +100,12 @@ for (var i = 1; i <= n_videos * n_videos_per_block; i++) {
         }
     });
 }
-
 // black image to be added before each video
 var image_block = {
     type: 'html-keyboard-response',
     stimulus: '<img src=\'' + image_pfefix + 'black_frame.jpg\'/>',
     choices: ['F'],
 };
-
 // build between blocks
 for (var i = 1; i <= n_videos * n_repeat / n_videos_per_block - 1; i++) {
     var videos_done = n_videos_per_block * i;
@@ -118,7 +115,6 @@ for (var i = 1; i <= n_videos * n_repeat / n_videos_per_block - 1; i++) {
         choices: ['C']
     });
 }
-
 // block for sending data
 var save_data_block = {
     type: 'call-function',
@@ -138,11 +134,6 @@ var save_data_block = {
             })
     }
 }
-
-console.log(video_ids);
-console.log(between_blocks);
-console.log(video_stimuli);
-
 // create experiment timeline array
 var timeline = [];
 timeline.push(instructions_block);
@@ -161,9 +152,10 @@ for (var i = 0; i < n_videos * n_repeat / n_videos_per_block; i++) {
 	    timeline.push(between_blocks[i]);
 	}
 }
-
+console.log(video_ids);
+console.log(between_blocks);
+console.log(video_stimuli);
 console.log(timeline);
-
 /* Start the experiment */
 jsPsych.init({
 	// auto_preload: false,
@@ -175,6 +167,5 @@ jsPsych.init({
         window.location.href = 'finish?work=' + finish_code;
     }
 });
-
 </script>
 </html>
