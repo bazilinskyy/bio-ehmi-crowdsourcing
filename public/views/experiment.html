@@ -94,7 +94,6 @@
   image_pfefix = 'img/';
 
 	for (var i = 1; i <= n_videos * n_repeat; i++) {
-	  video_name = video_pfefix + video_ids[i] + '.mp4';
 	  video_stimuli.push(
 	  {
 	    type: 'video-keyboard-multiple-responses-release',
@@ -104,7 +103,7 @@
 	    width: 1280,
 	    height: 720,
 	    choices: ['F'],
-	    sources: [video_name],
+	    sources: [video_pfefix + video_ids[i] + '.mp4'],
 	    prompt: '<p>Press and HOLD \'F\' when you feel safe to cross.</p>',
         on_finish: function(data){
           jsPsych.data.addDataToLastTrial({worker_code: finish_code});
@@ -148,10 +147,6 @@
       }
   }
 
-  console.log(video_ids);
-  console.log(between_blocks);
-  console.log(video_stimuli);
-
   /* create experiment timeline array */
   var timeline = [];
   timeline.push(instructions_block);
@@ -185,6 +180,11 @@
      	window.location.href = 'finish?work=' + finish_code;
     }
   });
+
+  console.log(video_ids);
+  console.log(between_blocks);
+  console.log(video_stimuli);
+  console.log(timeline);
 
 </script>
 </html>
