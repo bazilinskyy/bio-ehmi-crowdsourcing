@@ -2357,6 +2357,7 @@ jsPsych.pluginAPI = (function() {
         }
 
         function preload_video(source, count){
+            console.log(source)
             count = count || 1;
             //based on option 4 here: http://dinbror.dk/blog/how-to-preload-entire-html5-video-before-play-solved/
             var request = new XMLHttpRequest();
@@ -2385,7 +2386,7 @@ jsPsych.pluginAPI = (function() {
             }
             request.send();
         }
-
+        console.log(video)
         for (var i = 0; i < video.length; i++) {
             preload_video(video[i]);
         }
