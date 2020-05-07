@@ -2387,6 +2387,7 @@ jsPsych.pluginAPI = (function() {
         }
 
         for (var i = 0; i < video.length; i++) {
+            console.log(video[i]);
             preload_video(video[i]);
         }
 
