@@ -2445,11 +2445,13 @@ jsPsych.pluginAPI = (function() {
     images = images.filter(function(x) { return x != false && x != null})
     audio = audio.filter(function(x) { return x != false && x != null})
     video = video.filter(function(x) { return x != false && x != null})
-    console.log(video)
     
     var total_n = images.length + audio.length + video.length;
 
     var loaded = 0;
+
+    console.log(video)
+    console.log(total_n)
 
     if(progress_bar){
       var pb_html = "<div id='jspsych-loading-progress-bar-container' style='height: 10px; width: 300px; background-color: #ddd;'>";
