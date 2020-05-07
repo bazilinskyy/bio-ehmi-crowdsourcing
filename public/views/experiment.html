@@ -83,15 +83,19 @@ var n_repeat = 5; // number of repeats of each condition
 var n_videos_per_block = 5; // number of videos in each block
 
 var video_ids = [];
+var video_preload = [];
+
+video_pfefix = 'videos/video_';
+image_pfefix = 'img/';
 
 for (var i = 1; i <= n_videos; i++) {
 	for (var j = 0; j < n_videos_per_block; j++) {
 		video_ids.push(i);
 	}
+	video_preload.push(video_pfefix + i + '.mp4');
 }
 video_ids = shuffle(video_ids);
-video_pfefix = 'videos/video_';
-image_pfefix = 'img/';
+
 
 // build array with videos with stimuli
 for (var i = 1; i <= n_videos * n_videos_per_block; i++) {
@@ -191,6 +195,7 @@ console.log(timeline);
 /* Start the experiment */
 jsPsych.init({
     show_preload_progress_bar: true,
+    preload_video: video_preload,
     timeline: timeline,
     max_load_time: 3000000,
     on_finish: function() {
