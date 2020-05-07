@@ -90,10 +90,16 @@ for (var i = 0; i <= n_repeat; i++) {
     }
 }
 video_ids = shuffle(video_ids);
-video_pfefix = '/videos/video_';
+video_pfefix = 'videos/video_';
 image_pfefix = '/img/';
 
 for (var i = 1; i <= n_videos * n_repeat; i++) {
+	timeline = {
+		sources: [video_pfefix + video_ids[i] + '.mp4'],
+		on_finish: function(data){
+			jsPsych.data.addDataToLastTrial({worker_code: finish_code});
+		}
+	}
     video_stimuli.push({
         type: 'video-keyboard-multiple-responses-release',
         choices: ['F'],
@@ -102,7 +108,7 @@ for (var i = 1; i <= n_videos * n_repeat; i++) {
         width: 1280,
         height: 720,
         choices: ['F'],
-        sources: [video_pfefix + video_ids[i] + '.mp4'],
+        timeline: timeline,
         prompt: '<p>Press and HOLD \'F\' when you feel safe to cross.</p>',
         on_finish: function(data) {
             jsPsych.data.addDataToLastTrial({
