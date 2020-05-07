@@ -2357,7 +2357,6 @@ jsPsych.pluginAPI = (function() {
         }
 
         function preload_video(source, count){
-            console.log(source)
             count = count || 1;
             //based on option 4 here: http://dinbror.dk/blog/how-to-preload-entire-html5-video-before-play-solved/
             var request = new XMLHttpRequest();
@@ -2386,18 +2385,10 @@ jsPsych.pluginAPI = (function() {
             }
             request.send();
         }
-        console.log(video)
-        var preloaded = [];
+
         for (var i = 0; i < video.length; i++) {
-            console.log(preloaded.includes(video[i]));
-            console.log(preloaded)
-            if (preloaded.includes(video[i])===false) {  // check if video was already preloaded
-              console.log('load');
-              preload_video(video[i]);
-            } 
-            preloaded.push(video[i]);
+            preload_video(video[i]);
         }
-        console.log(preloaded)
 
     };
 
@@ -2458,9 +2449,6 @@ jsPsych.pluginAPI = (function() {
     var total_n = images.length + audio.length + video.length;
 
     var loaded = 0;
-
-    console.log(video)
-    console.log(total_n)
 
     if(progress_bar){
       var pb_html = "<div id='jspsych-loading-progress-bar-container' style='height: 10px; width: 300px; background-color: #ddd;'>";
