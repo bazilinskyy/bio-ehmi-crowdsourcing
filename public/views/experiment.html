@@ -100,12 +100,18 @@ for (var i = 1; i <= n_videos * n_videos_per_block; i++) {
         }
     });
 }
-// black image to be added before each video
+// black with text to continue before showing the image
+var continue_block = {
+    type: 'html-keyboard-response',
+    stimulus: '<p>Press \'C\' to continue to the next video.</p>',
+    choices: ['C'],
+    trial_duration: 2000
+};
+// black with image to be added before each video
 var image_block = {
     type: 'html-keyboard-response',
     stimulus: '<img src=\'' + image_pfefix + 'cat_frame.png\'/><p>Press and HOLD \'F\' when you feel safe to cross.</p>',
     choices: ['F'],
-    trial_duration: 2000
 };
 // build between blocks
 for (var i = 1; i <= n_videos * n_repeat / n_videos_per_block - 1; i++) {
@@ -143,6 +149,7 @@ for (var i = 0; i < n_videos * n_repeat / n_videos_per_block; i++) {
     // iterate over videos per block
     for (var j = 0; j < n_videos_per_block; j++) {
     	console.log(i, j);
+    	timeline.push(continue_block);
         timeline.push(image_block);
         timeline.push(video_stimuli[i * j]);
     }
