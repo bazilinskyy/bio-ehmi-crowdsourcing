@@ -92,7 +92,7 @@ for (var i = 1; i <= n_videos * n_videos_per_block; i++) {
         height: 720,
         choices: ['F'],
         sources: [video_pfefix + video_ids[i] + '.mp4'],
-        prompt: '<p>Press and HOLD \'F\' when you feel safe to cross.</p>',
+        prompt: '<p>Keep pressing and HOLD \'F\' when you feel safe to cross.</p>',
         on_finish: function(data) {
             jsPsych.data.addDataToLastTrial({
                 worker_code: finish_code
@@ -103,7 +103,7 @@ for (var i = 1; i <= n_videos * n_videos_per_block; i++) {
 // black image to be added before each video
 var image_block = {
     type: 'html-keyboard-response',
-    stimulus: '<img src=\'' + image_pfefix + 'black_frame.jpg\'/>',
+    stimulus: '<img src=\'' + image_pfefix + 'black_frame.jpg\'/><p>Press and HOLD \'F\' when you feel safe to cross.</p>',
     choices: ['F'],
 };
 // build between blocks
