@@ -91,7 +91,9 @@ video_ids = shuffle(video_ids);
 video_pfefix = 'videos/video_';
 image_pfefix = '/img/';
 
-for (var i = 1; i <= n_videos * n_repeat; i++) {
+
+// build array with videos with stimuli
+for (var i = 1; i <= n_videos; i++) {
 	timeline = {
 		sources: [video_pfefix + video_ids[i] + '.mp4'],
 		on_finish: function(data){
@@ -105,14 +107,14 @@ for (var i = 1; i <= n_videos * n_repeat; i++) {
         width: 1280,
         height: 720,
         choices: ['F'],
-        // timeline: timeline,
+        timeline: timeline,
         sources: [video_pfefix + video_ids[i] + '.mp4'],
         prompt: '<p>Press and HOLD \'F\' when you feel safe to cross.</p>',
-        on_finish: function(data) {
-            jsPsych.data.addDataToLastTrial({
-                worker_code: finish_code
-            });
-        }
+        // on_finish: function(data) {
+        //     jsPsych.data.addDataToLastTrial({
+        //         worker_code: finish_code
+        //     });
+        // }
     });
 }
 
