@@ -164,13 +164,14 @@ timeline.push(instructions_block);
 for (var i = 0; i < n_videos * n_repeat / n_videos_per_block; i++) {
     // iterate over videos per block
     for (var j = 0; j < n_videos_per_block; j++) {
+    	console.log(i, j);
         timeline.push(image_block);
         timeline.push(video_stimuli[i * j]);
     }
     // save data
     timeline.push(save_data_block);
     // don't add between block after the last trial
-    if (i == n_videos * n_repeat / n_videos_per_block - 1) {
+    if (i != n_videos * n_repeat / n_videos_per_block - 1) {
 	    timeline.push(between_blocks[i]);
 	}
 }
