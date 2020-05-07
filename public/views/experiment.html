@@ -14,6 +14,7 @@
   <body>
   </body>
   <script>
+// by Pavlo Bazilinskyy <p.bazilinskyy@tudelft.nl>
 
 // Constants
 var n_videos = 12; // number of videos
@@ -147,10 +148,11 @@ timeline.push(instructions_block);
 for (var i = 0; i < n_videos * n_repeat / n_videos_per_block; i++) {
     // iterate over videos per block
     for (var j = 0; j < n_videos_per_block; j++) {
-    	console.log(i, j);
-    	timeline.push(continue_block);
-        timeline.push(image_block);
-        timeline.push(video_stimuli[i * j]);
+    	if (j != 0) {  // add the continue page before all videos except for the 1st one
+	    	timeline.push(continue_block);
+	    }
+        timeline.push(image_block);  // page with an image asking to press the key
+        timeline.push(video_stimuli[i * j]);  // page with the stimulus
     }
     // save data
     timeline.push(save_data_block);
