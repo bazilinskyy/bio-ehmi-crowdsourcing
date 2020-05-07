@@ -2429,9 +2429,9 @@ jsPsych.pluginAPI = (function() {
             } else if (media === 'audio') {
               audio = audio.concat(jsPsych.utils.flatten([trials[j][param]]));
             }
-            else if (media === 'video') {
-              video = video.concat(jsPsych.utils.flatten([trials[j][param]]));
-            }
+            // else if (media === 'video') {
+            //   video = video.concat(jsPsych.utils.flatten([trials[j][param]]));
+            // }
           }
         }
       }
