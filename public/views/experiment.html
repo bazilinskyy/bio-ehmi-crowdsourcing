@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Videos of eHMI from Unity</title>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+    <script src='jsPsych/jspsych.js'></script>
+    <script src='jsPsych/plugins/jspsych-html-keyboard-response.js'></script>
+    <script src='jsPsych/plugins/jspsych-video-keyboard-multiple-responses-release.js'></script>
+    <script src='jsPsych/plugins/jspsych-call-function.js'></script>
+    <link href='jsPsych/css/jspsych.css' rel='stylesheet' type='text/css'></link>
+    <link href='css/experiment.css' rel='stylesheet' type='text/css'></link>
+    <link rel='icon' type='image/png' href='/img/favicon.png' />
+  </head>
+  <body>
+  </body>
+  <script>
+
+  var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+  };
+
+  function getFinishCode() {
+      var timestamp = window.performance.timing.navigationStart + window.performance.now();
+      var current_time = Math.round(timestamp);
+      var random_num = getRandomInt(1, 10000);
+      finish_code = 'E2' + current_time + 'RE' + random_num + '3Z';
+    return finish_code;
+  }
+
+  var finish_code = getFinishCode();
+
+  /* define instructions block */
+  var instructions_block = {
+    type: 'html-keyboard-response',
+    stimulus: '<p>In this experiment, you will view 60 videos of cars with eHMI concepts. Each time you feel safe to cross the road in front of the car. Each video will starr from a black screen. When you see the black screen please do the following: (1) Press key \'F\'. (2) Keep pressing the key as long as you feel safe during the video. (3) When you do not feel safe to cross anymore, release the key. The video will not load unless you press the key \'F\'. After each 5 videos you will be able to take a small break. Press \'C\' to start the first video.</p>',
+    choices: ['C'],
+  };
+
+  /* define test block */
+  var between_blocks = [];  // instructions between blocks
+  var video_stimuli  = [];  // blocks with videos
+
+  /**
+   * Shuffles array in place.
+   * @param {Array} a items An array containing the items.
+   */
+  function shuffle(a) {
+      var j, x, i;
+      for (i = a.length - 1; i > 0; i--) {
+          j = Math.floor(Math.random() * (i + 1));
+          x = a[i];
+          a[i] = a[j];
+          a[j] = x;
+      }
+      return a;
+  }
+
+  // create array of video_ids, remove 0th id, shuffle
+  var n_videos = 12; // number of videos
+  var n_repeat = 5;  // number of repeats of each condition
+  var n_blocks = 12;  // numbers of blocks of videos
+  var n_videos_per_block = 5;  // number of videos in each block
+
+  var video_ids = [];
+
+  for (var i = 0; i <= num_repeat; i++) {
+	  for (var i = 1; i <= n_videos + 1; i++) {
+	      video_ids.push(i);
+	  }
+	}
+  // video_ids = video_ids.slice(1);
+  video_ids = shuffle(video_ids);
+  video_pfefix = 'video/video_';
+  image_pfefix = 'img/';
+
+	for (var i = 1; i <= n_videos * n_repeat + 1; i++) {
+	  video_name = video_pfefix + video_ids[i] + '.mp4';
+	  video_stimuli.push(
+	  {
+	    type: 'video-keyboard-multiple-responses-release',
+	    choices: ['F'],
+	    autoplay: true,
+	    controls: false,
+	    width: 1280,
+	    height: 720,
+	    choices: ['F'],
+	    sources: [video_name],
+	    prompt: '<p>Press and HOLD \'F\' when you feel safe to cross.</p>',
+        on_finish: function(data){
+          jsPsych.data.addDataToLastTrial({worker_code: finish_code});
+        }
+	  };
+	}
+
+  	 var image_block = {
+	    type: 'html-keyboard-response',
+	    stimulus: '<img src=' + image_pfefix + 'black_frame.jpg\'/>',
+
+	    
+	    choices: ['C'],
+	  };
+
+  // build between blocks
+  for (var i = 1; i <= n_blocks + 1; i++) {
+  	  var videos_done = n_videos_per_block * i;
+	  between_blocks.push(
+	  {
+	    type: 'html-keyboard-response',
+	    stimulus: '<p>You have now completed ' + videos_done + ' videos out of' + n_blocks * n_videos_per_block + '. When ready press \'C\' to proceed to the next batch.</p>',
+	    choices: ['C']
+	  };
+	}
+
+  var save_data_block = {
+    type: 'call-function',
+    func:  function() {
+      $.ajax({
+          type: 'POST',
+          url: '/experiment-data',
+          data: jsPsych.data.get().json(),
+          contentType: 'application/json'
+        })
+        .done(function() {
+          jsPsych.data.reset();
+        })
+        .fail(function() {
+          alert('A problem occurred while writing to the database. Please contact the researcher for more information.')
+          window.location.href = '/';
+        })
+      }
+  }
+
+  console.log(video_ids);
+  console.log(between_blocks);
+  console.log(video_stimuli);
+
+  /* create experiment timeline array */
+  var timeline = [];
+  timeline.push(instructions_block);
+  // iterate over blocks
+  for (var i = 0; i <= n_blocks; i++) {
+  	// iterate over videos per block
+  	for (var j = 0; j <= n_videos_per_block; i++) {
+  	  timeline.push(image_block);
+  	  timeline.push(video_stimuli[i * j - 1]);
+  	}
+  	// save data
+	timeline.push(save_data_block);
+	timeline.push(between_blocks[i]);
+  }
+
+  /* MTurk information */
+  var turkInfo = jsPsych.turk.turkInfo();
+  if(turkInfo.previewMode && !turkInfo.outsideTurk) {
+    worker_id = turkInfo.workerId;
+  } else {
+    worker_id = String(Date.now());
+  }
+  timestamp = String(Date.now());
+
+  /* Start the experiment */
+  jsPsych.init({
+    show_preload_progress_bar: true,
+    timeline: timeline,
+    max_load_time: 3000000,
+    on_finish: function() {
+     	window.location.href = 'finish?work=' + finish_code;
+    }
+  });
+
+</script>
+</html>
