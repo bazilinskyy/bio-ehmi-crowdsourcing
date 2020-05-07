@@ -147,6 +147,10 @@ var save_data_block = {
     }
 }
 
+console.log(video_ids);
+console.log(between_blocks);
+console.log(video_stimuli);
+
 /* create experiment timeline array */
 var timeline = [];
 timeline.push(instructions_block);
@@ -171,9 +175,6 @@ if (turkInfo.previewMode && !turkInfo.outsideTurk) {
 }
 timestamp = String(Date.now());
 
-console.log(video_ids);
-console.log(between_blocks);
-console.log(video_stimuli);
 console.log(timeline);
 
 /* Start the experiment */
