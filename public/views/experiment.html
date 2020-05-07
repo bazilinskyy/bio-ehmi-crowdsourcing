@@ -119,7 +119,7 @@
 	  };
 
   // build between blocks
-  for (var i = 1; i <= n_videos * n_repeat / n_videos_per_block; i++) {
+  for (var i = 1; i <= n_videos * n_repeat / n_videos_per_block - 1; i++) {
   	  var videos_done = n_videos_per_block * i;
 	  between_blocks.push(
 	  {
