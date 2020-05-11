@@ -110,7 +110,7 @@ var continue_block = {
 // black with image to be added before each video
 var image_block = {
     type: 'html-keyboard-response',
-    stimulus: '<img src=\'' + image_pfefix + 'cat_frame.png\'/><p>Press and HOLD \'F\' when you feel safe to cross.</p>',
+    stimulus: '<img src=\'' + image_pfefix + 'black_frame.png\'/><p>Press and HOLD \'F\' when you feel safe to cross.</p>',
     choices: ['F'],
 };
 // build between blocks
@@ -169,7 +169,7 @@ console.log(timeline);
 jsPsych.init({
 	// auto_preload: false,
     show_preload_progress_bar: true,
-    preload_images: ['img/cat_frame.png'],
+    preload_images: ['img/black_frame.png'],
     timeline: timeline,
     max_load_time: 3000000,
     on_finish: function() {
