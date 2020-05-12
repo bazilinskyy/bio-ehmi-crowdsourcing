@@ -84,7 +84,7 @@ for (var i = 1; i <= n_videos; i++) {
 // shuffle array with video IDs
 video_ids = shuffle(video_ids);
 // build array with videos with stimuli
-for (var i = 1; i <= n_videos * n_videos_per_block; i++) {
+for (var i = 0; i < n_videos * n_videos_per_block; i++) {
     video_stimuli.push({
         type: 'video-keyboard-multiple-responses-release',
         autoplay: true,
