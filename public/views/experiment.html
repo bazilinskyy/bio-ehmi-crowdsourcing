@@ -153,6 +153,7 @@ for (var i = 0; i < n_videos * n_repeat / n_videos_per_block; i++) {
 	    }
         timeline.push(image_block);  // page with an image asking to press the key
         timeline.push(video_stimuli[i * j]);  // page with the stimulus
+        console.log(i, j, i * j);
     }
     // save data
     timeline.push(save_data_block);
