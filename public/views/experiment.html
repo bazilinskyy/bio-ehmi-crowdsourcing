@@ -72,7 +72,7 @@ var video_stimuli = []; // blocks with videos
 // define instructions block
 var instructions_block = {
     type: 'html-keyboard-response',
-    stimulus: '<div style="float: left; text-align: left"><p>In this experiment, you will view 60 videos of cars with eHMI concepts. Each time you feel safe to cross the road in front of the car. Each video will start from a black screen. When you see the black screen please do the following:</p><ol><li>Press key \'F\'.</li><li>Keep pressing the key till the video loads.</li><li>When the video loads, keep pressing the key as long as you feel safe during the video.</li><li>When you do not feel safe to cross anymore, release the key.</li></ol><p>After each 5 videos you will be able to take a small break. Press \'C\' to start the first video.</p></div>',
+    stimulus: '<div style="float: left; text-align: left"><p>You will view 60 videos of cars with various external Human Machine Interfaces (eHMIs). Each video starts from a black screen. As soon as you see the black screen please do the following:</p><ol><li>Press and hold key \'F\'.</li><li>Hold the key pressed until the video loads.</li><li>While the video plays, hold the key pressed as long as you feel safe to cross.</li><li>Release the key when you do not feel safe to cross.</li><li>You can press and release the key as many times as you want per video.</li></ol><p>After each 5 videos you will be able to take a small break. Press \'C\' to start the first video.</p></div>',
     choices: ['C'],
 };
 // populate array with video IDs
@@ -93,7 +93,7 @@ for (var i = 0; i < n_videos * n_videos_per_block; i++) {
         height: 720,
         choices: ['F'],
         sources: [video_pfefix + video_ids[i] + '.mp4'],
-        prompt: '<p>Press and HOLD \'F\' when you feel safe to cross.</p>',
+        prompt: '<p>Press and hold \'F\' when you feel safe to cross.</p>',
         on_finish: function(data) {
             jsPsych.data.addDataToLastTrial({
                 worker_code: finish_code
