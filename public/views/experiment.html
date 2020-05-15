@@ -200,7 +200,8 @@ var video_example_2 = {
 var questions_end = {
   type: 'survey-html-form',
   preamble: '<p> How are you feeling <b>right now?</b> </p>',
-  html: '<p> I am feeling <input name="first" type="text" />, <input name="second" type="text" />, and <input name="third" type="text" />.</p>'
+  // html: '<p> I am feeling <input name="first" type="text" />, <input name="second" type="text" />, and <input name="third" type="text" />.</p>'
+  html: '<table><thead><tr><th></th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th></tr></thead><tbody><tr><td>Please rank the ways of communicating you have just seen in terms of clarity (from 1 = most clear to 6 = least clear)</td><td><input name="input1-1" type="text" /></td><td><input name="input1-2" type="text" /></td><td><input name="input1-3" type="text" /></td><td><input name="input1-4" type="text" /></td><td><input name="input1-5" type="text" /></td><td><input name="input1-6" type="text" /></td></tr><tr><td>Please rank the ways of communicating you have just seen in terms of your personal preference (from 1 = most preferred to 6 = least preferred)</td><td><input name="input2-1" type="text" /></td><td><input name="input2-2" type="text" /></td><td><input name="input2-3" type="text" /></td><td><input name="input2-4" type="text" /></td><td><input name="input2-5" type="text" /></td><td><input name="input2-6" type="text" /></td></tr></tbody></table>'
 };
 // block for sending data
 var save_data_block = {
