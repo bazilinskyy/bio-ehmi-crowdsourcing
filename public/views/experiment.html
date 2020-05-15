@@ -185,6 +185,7 @@ for (var i = 0; i < n_videos * n_repeat / n_videos_per_block; i++) {
     // don't add the between block after the last trial
     // if (i != n_videos * n_break / n_videos_per_block - 1 && i % n_break / n_videos_per_block == 0 && i != 0) {
     if (i != n_videos * n_break / n_videos_per_block - 1 && i % 2 == 1) {
+    	console.log(i);
     	console.log(between_blocks[i]);
 	    timeline.push(between_blocks[i]);
 	}
