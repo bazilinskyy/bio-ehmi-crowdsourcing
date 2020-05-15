@@ -72,7 +72,7 @@ var video_stimuli = []; // blocks with videos
 // define instructions block
 var instructions_block = {
     type: 'html-keyboard-response',
-    stimulus: '<div style="float: left; text-align: left"><p>You will view 60 videos of approaching cars. The cars sometimes stop and sometimes maintain speed. Some cars have a special feature. This feature informs you about the car’s intentions.</p><p>Each video starts as a black screen. As soon as you see the black screen, press and HOLD the key \'F\'.</p><ol><li>Hold the key as long as you feel safe to cross.</li><li>Release the key if you do not feel safe cross anymore.</li></ol><p>You can press and release they key as many times as you want per video.</p></div>',
+    stimulus: '<div style="float: left; text-align: left"><p>You will view 60 videos of approaching cars. The cars sometimes stop and sometimes continue driving. Some cars have a special feature. This feature informs you about the car\'s intentions.</p><p>Each video starts with a black screen. As soon as you see the black screen, press and HOLD the key \'F\'.</p><ol><li>Hold the key as long as you feel safe to cross.</li><li>Release the key if you do not feel safe to cross anymore.</li><li>You can press and release the key as many times as you want per video.</li><li>After each video, you need to press \’C\’ to continue to the next video.</li></ol></div>',
     choices: ['C'],
 };
 // populate array with video IDs
@@ -93,7 +93,7 @@ for (var i = 0; i < n_videos * n_videos_per_block; i++) {
         height: 720,
         choices: ['F'],
         sources: [video_pfefix + video_ids[i] + '.mp4'],
-        prompt: '<p>Press and hold \'F\' when you feel safe to cross.</p>',
+        prompt: '<p>Press and HOLD \'F\' when you feel safe to cross.</p>',
         on_finish: function(data) {
             jsPsych.data.addDataToLastTrial({
                 worker_code: finish_code
@@ -110,7 +110,7 @@ var continue_block = {
 // black with image to be added before each video
 var image_block = {
     type: 'html-keyboard-response',
-    stimulus: '<img src=\'' + image_pfefix + 'black_frame.png\'/><p>Press and hold \'F\' when you feel safe to cross.</p>',
+    stimulus: '<img src=\'' + image_pfefix + 'black_frame.png\'/><p>Press and HOLD \'F\' when you feel safe to cross.</p>',
     choices: ['F'],
 };
 // build between blocks
