@@ -9,7 +9,7 @@
     <script src='jsPsych/plugins/jspsych-call-function.js'></script>
     <script src='jsPsych/plugins/jspsych-html-slider-response.js'></script>
     <script src='jsPsych/plugins/jspsych-video-keyboard-response.js'></script>
-    <script src='jsPsych/plugins/jspsych-survey-text.js'></script>
+    <script src='jsPsych/plugins/jspsych-survey-html-form.js'></script>
     <link href='jsPsych/css/jspsych.css' rel='stylesheet' type='text/css'></link>
     <link href='css/experiment.css' rel='stylesheet' type='text/css'></link>
     <link rel='icon' type='image/png' href='/img/favicon.png' />
@@ -190,12 +190,17 @@ var video_example_2 = {
 //     {prompt: "I like fruit", options: page_2_options, required: false, horizontal: true}
 //   ],
 // };
+// var questions_end = {
+//   type: 'survey-text',
+//   questions: [
+//     {prompt: "How old are you?", rows: 5, columns: 40}, 
+//     {prompt: "Where were you born?", rows: 3, columns: 50}
+//   ],
+// };
 var questions_end = {
-  type: 'survey-text',
-  questions: [
-    {prompt: "How old are you?", rows: 5, columns: 40}, 
-    {prompt: "Where were you born?", rows: 3, columns: 50}
-  ],
+  type: 'survey-html-form',
+  preamble: '<p> How are you feeling <b>right now?</b> </p>',
+  html: '<p> I am feeling <input name="first" type="text" />, <input name="second" type="text" />, and <input name="third" type="text" />.</p>'
 };
 // block for sending data
 var save_data_block = {
