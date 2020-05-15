@@ -260,7 +260,7 @@ console.log(timeline);
 jsPsych.init({
 	// auto_preload: false,
     show_preload_progress_bar: true,
-    preload_images: ['img/black_frame.png'],
+    preload_images: [image_pfefix + 'img/black_frame.png', image_pfefix + 'img/colour.png', image_pfefix + 'img/gesture.png', image_pfefix + 'img/implicit.png', image_pfefix + 'img/lightbar.png', image_pfefix + 'img/posture.png', image_pfefix + 'img/text.png'],
     timeline: timeline,
     max_load_time: 3000000,
     on_finish: function() {
