@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-
     <script src="../jspsych.js"></script>
-    <script src="../plugins/jspsych-video.js"></script>
+    <script src="../plugins/jspsych-video-button-response.js"></script>
     <script src="../plugins/jspsych-html-button-response.js"></script>
     <link rel="stylesheet" href="../css/jspsych.css"></link>
   </head>
@@ -17,11 +16,23 @@
   }
 
   var trial = {
-    type: 'video',
+    type: 'video-button-response',
+    sources: ['video/sample_video.mp4'],
+    choices: ['y','n'],
+    button_html: '<button class="jspsych-btn">%choice%!</button>',
+    margin_vertical: '10px',
+    margin_horizontal: '8px',
+    prompt: 'Press Y or N',
     width: 600,
-    start: 8,
-    stop: 1000,
-    sources: ['video/sample_video.mp4']
+    //height: 600,
+    autoplay: true,
+    //controls: true,
+    //start: 8,
+    //stop: 9,
+    rate: 1.5,
+    //trial_duration: 2000,
+    
+    response_ends_trial: true
   }
 
   jsPsych.init({
