@@ -184,7 +184,7 @@ for (var i = 0; i < n_videos * n_repeat / n_videos_per_block; i++) {
     timeline.push(save_data_block);
     // don't add the between block after the last trial
     if (i != n_videos * n_repeat / n_break - 1 && i % n_break == 0) {
-	    timeline.push(between_blocks[i]);
+	    timeline.push(between_blocks[i / 2]);
 	}
 }
 console.log(video_ids);
