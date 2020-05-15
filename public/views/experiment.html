@@ -104,8 +104,8 @@ video_ids_blocks.push(video_ids_5);
 video_ids_blocks.push(video_ids_6);
 video_ids_blocks = shuffle(video_ids_blocks);
 console.log('video_ids_blocks ', video_ids_blocks);
-video_ids = shuffle(video_ids_blocks[0].concat(video_ids_blocks[1], video_ids_blocks[2], video_ids_blocks[3], video_ids_blocks[4], video_ids_blocks[5]));
-console.log('video_ids ', video_ids);
+var video_ids_blocks_shuffled = shuffle(video_ids_blocks[0].concat(video_ids_blocks[1], video_ids_blocks[2], video_ids_blocks[3], video_ids_blocks[4], video_ids_blocks[5]));
+console.log('video_ids ', video_ids_blocks_shuffled);
 
 // build array with videos with stimuli
 for (var i = 0; i < n_videos * n_videos_per_block; i++) {
