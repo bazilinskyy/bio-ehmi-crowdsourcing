@@ -9,6 +9,7 @@
     <script src='jsPsych/plugins/jspsych-call-function.js'></script>
     <script src='jsPsych/plugins/jspsych-html-slider-response.js'></script>
     <script src='jsPsych/plugins/jspsych-video-keyboard-response.js'></script>
+    <script src='jsPsych/plugins/jspsych-survey-text.js'></script>
     <link href='jsPsych/css/jspsych.css' rel='stylesheet' type='text/css'></link>
     <link href='css/experiment.css' rel='stylesheet' type='text/css'></link>
     <link rel='icon' type='image/png' href='/img/favicon.png' />
@@ -181,6 +182,21 @@ var video_example_2 = {
     sources: [video_pfefix + 'example_2.mp4'],
     prompt: '<p>Watch this video with an example of communication of the car till the end.</p>',
 };
+// final questionnaire
+// var multi_choice_block_horizontal = {
+//   type: 'survey-multi-choice',
+//   questions: [
+//     {prompt: "I like vegetables", options: page_1_options, required: true, horizontal: true,}, 
+//     {prompt: "I like fruit", options: page_2_options, required: false, horizontal: true}
+//   ],
+// };
+var questions_end = {
+  type: 'survey-text',
+  questions: [
+    {prompt: "How old are you?", rows: 5, columns: 40}, 
+    {prompt: "Where were you born?", rows: 3, columns: 50}
+  ],
+};
 // block for sending data
 var save_data_block = {
     type: 'call-function',
@@ -202,6 +218,7 @@ var save_data_block = {
 }
 // create experiment timeline array
 var timeline = [];
+timeline.push(questions_end);
 timeline.push(instructions_block);
 timeline.push(video_example_1);
 timeline.push(video_example_2);
