@@ -7,6 +7,7 @@
     <script src='jsPsych/plugins/jspsych-html-keyboard-response.js'></script>
     <script src='jsPsych/plugins/jspsych-video-keyboard-multiple-responses-release.js'></script>
     <script src='jsPsych/plugins/jspsych-call-function.js'></script>
+    <script src='jsPsych/plugins/jspsych-html-slider-response.js'></script>
     <link href='jsPsych/css/jspsych.css' rel='stylesheet' type='text/css'></link>
     <link href='css/experiment.css' rel='stylesheet' type='text/css'></link>
     <link rel='icon' type='image/png' href='/img/favicon.png' />
@@ -147,6 +148,24 @@ for (var i = 1; i <= n_videos * n_repeat / n_videos_per_block - 1; i++) {
         choices: ['C']
     });
 }
+// block with text to continue before showing the image
+var slider_block_1 = {
+    type: 'html-slider-response',
+    labels: ['0', '20', '40', '60', '80', '100'],
+    stimulus: '<p></p>',
+    slider_width: 1000,
+    prompt: "<p style='width: 1000px'>Please rate the following statement based on 10 videos shown since the last break/start of the experiment: <strong>It was easy to understand the signal</strong> (0 = completely disagree, 100 = completely agree).</p>",
+    require_movement: true
+};
+// block with text to continue before showing the image
+var slider_block_2 = {
+    type: 'html-slider-response',
+    labels: ['0', '20', '40', '60', '80', '100'],
+    stimulus: '<p></p>',
+    slider_width: 1000,
+    prompt: "<p style='width: 1000px'>Please rate the following statement based on 10 videos shown since the last break/start of the experiment: <strong>I like this way of communication</strong> (0 = completely disagree, 100 = completely agree).</p>",
+    require_movement: true
+};
 // block for sending data
 var save_data_block = {
     type: 'call-function',
@@ -180,12 +199,17 @@ for (var i = 0; i < n_videos * n_repeat / n_videos_per_block; i++) {
         timeline.push(video_stimuli[i * n_videos_per_block + j]);  // page with the stimulus
         console.log(i, j, i * n_videos_per_block + j, video_stimuli[i * n_videos_per_block + j]);
     }
+    // questions after each block with stimuli
+    if (i != 11 && i % 2 == 1) {
+	    timeline.push(slider_block_1);
+	    timeline.push(slider_block_2);
+	}
     // save data
     timeline.push(save_data_block);
     // don't add the between block after the last trial
     if (i != 11 && i % 2 == 1) {
-    	console.log(i);
-    	console.log(between_blocks[i]);
+	    timeline.push(slider_block_1);
+	    timeline.push(slider_block_2);
 	    timeline.push(between_blocks[i]);
 	}
 }
