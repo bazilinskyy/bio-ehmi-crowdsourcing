@@ -20,6 +20,7 @@
 var n_videos = 12; // number of videos
 var n_repeat = 5; // number of repeats of each condition
 var n_videos_per_block = 5; // number of videos in each block
+var n_break = 10; // number of videos between each break
 var video_pfefix = 'videos/video_'; // prefix for videos
 var image_pfefix = 'img/'; // prefix for images
 
@@ -138,8 +139,8 @@ var image_block = {
     choices: ['F'],
 };
 // build between blocks
-for (var i = 1; i <= n_videos * n_repeat / n_videos_per_block - 1; i++) {
-    var videos_done = n_videos_per_block * i;
+for (var i = 1; i <= n_videos * n_repeat / n_break - 1; i++) {
+    var videos_done = n_break * i;
     between_blocks.push({
         type: 'html-keyboard-response',
         stimulus: '<p>You have now completed ' + videos_done + ' videos out of ' + n_videos * n_repeat + '. When ready press \'C\' to proceed to the next batch.</p>',
@@ -182,7 +183,7 @@ for (var i = 0; i < n_videos * n_repeat / n_videos_per_block; i++) {
     // save data
     timeline.push(save_data_block);
     // don't add the between block after the last trial
-    if (i != n_videos * n_repeat / n_videos_per_block - 1) {
+    if (i != n_videos * n_repeat / n_videos_per_block - 1 && i % 10 == 0) {
 	    timeline.push(between_blocks[i]);
 	}
 }
