@@ -178,12 +178,12 @@ for (var i = 0; i < n_videos * n_repeat / n_videos_per_block; i++) {
 	    }
         timeline.push(image_block);  // page with an image asking to press the key
         timeline.push(video_stimuli[i * n_videos_per_block + j]);  // page with the stimulus
-            console.log(i, j, i * n_videos_per_block + j, video_stimuli[i * n_videos_per_block + j]);
+        console.log(i, j, i * n_videos_per_block + j, video_stimuli[i * n_videos_per_block + j]);
     }
     // save data
     timeline.push(save_data_block);
     // don't add the between block after the last trial
-    if (i != n_videos * n_repeat / n_videos_per_block - 1 && i % 10 == 0) {
+    if (i != n_videos * n_repeat / n_break - 1 && i % 10 == 0) {
 	    timeline.push(between_blocks[i]);
 	}
 }
