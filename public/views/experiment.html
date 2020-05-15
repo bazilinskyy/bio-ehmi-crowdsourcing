@@ -18,7 +18,7 @@
 	    width: 200px;
 	}
 	#questionnaire input{
-	    font-size: : 14px;
+	    font-size: 18px;
 	}
 	</style>
   </head>
@@ -236,6 +236,7 @@ var save_data_block = {
 // create experiment timeline array
 var timeline = [];
 timeline.push(questions_end);
+timeline.push(save_data_block);
 timeline.push(instructions_block);
 timeline.push(video_example_1);
 timeline.push(video_example_2);
@@ -255,6 +256,10 @@ for (var i = 0; i < n_videos * n_repeat / n_videos_per_block; i++) {
     if (i != 11 && i % 2 == 1) {
 	    timeline.push(slider_block_1);
 	    timeline.push(slider_block_2);
+	}
+	// add final questionnaire in the
+	if (i == 11) {
+		timeline.push(questions_end);
 	}
     // save data
     timeline.push(save_data_block);
