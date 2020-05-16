@@ -288,6 +288,7 @@ for (var i = 0; i < n_videos * n_repeat / n_videos_per_block; i++) {
 	    // timeline.push(slider_block_2);
 	    // timeline.push(sliders_block);
         timeline.push(sliders_blocks[i / 2]);
+        console.log(i / 2, sliders_blocks[i / 2]);
 	}
 	// add final questionnaire in the
 	if (i == 11) {
@@ -304,6 +305,7 @@ console.log(video_ids);
 console.log(between_blocks);
 console.log(video_stimuli);
 console.log(timeline);
+console.log(sliders_blocks);
 /* Start the experiment */
 jsPsych.init({
 	// auto_preload: false,
