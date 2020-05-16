@@ -77,21 +77,33 @@ jsPsych.plugins['survey-html-form-slider'] = (function() {
     if(trial.require_movement){
       display_element.querySelector('#jspsych-html-slider-response-response-1').addEventListener('change', function(){
         slider_1_moved = true;
+        // check if all 4 sliders were moved
+        if (slider_1_moved && slider_2_moved && slider_3_moved && slider_4_moved) {
+          display_element.querySelector('#jspsych-survey-html-form-next').disabled = false;
+        }
       })
       display_element.querySelector('#jspsych-html-slider-response-response-2').addEventListener('change', function(){
         slider_2_moved = true;
+        // check if all 4 sliders were moved
+        if (slider_1_moved && slider_2_moved && slider_3_moved && slider_4_moved) {
+          display_element.querySelector('#jspsych-survey-html-form-next').disabled = false;
+        }
       })
       display_element.querySelector('#jspsych-html-slider-response-response-3').addEventListener('change', function(){
         slider_3_moved = true;
+        // check if all 4 sliders were moved
+        if (slider_1_moved && slider_2_moved && slider_3_moved && slider_4_moved) {
+          display_element.querySelector('#jspsych-survey-html-form-next').disabled = false;
+        }
       })
       display_element.querySelector('#jspsych-html-slider-response-response-4').addEventListener('change', function(){
         slider_4_moved = true;
+        // check if all 4 sliders were moved
+        if (slider_1_moved && slider_2_moved && slider_3_moved && slider_4_moved) {
+          display_element.querySelector('#jspsych-survey-html-form-next').disabled = false;
+        }
       })
       console.log(slider_1_moved, slider_2_moved, slider_3_moved, slider_4_moved);
-      // check if all 4 sliders were moved
-      if (slider_1_moved && slider_2_moved && slider_3_moved && slider_4_moved) {
-        display_element.querySelector('#jspsych-survey-html-form-next').disabled = false;
-      }
     }
 
     display_element.querySelector('#jspsych-survey-html-form').addEventListener('submit', function(event) {
