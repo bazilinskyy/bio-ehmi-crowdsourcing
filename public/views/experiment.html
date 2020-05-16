@@ -287,8 +287,8 @@ for (var i = 0; i < n_videos * n_repeat / n_videos_per_block; i++) {
 	    // timeline.push(slider_block_1);
 	    // timeline.push(slider_block_2);
 	    // timeline.push(sliders_block);
-        timeline.push(sliders_blocks[i / 2]);
-        console.log(i / 2, sliders_blocks[i / 2]);
+        timeline.push(sliders_blocks[Math.floor(i / 2)]);
+        console.log(Math.floor(i / 2), sliders_blocks[i / 2]);
 	}
 	// add final questionnaire in the
 	if (i == 11) {
