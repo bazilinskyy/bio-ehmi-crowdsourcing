@@ -206,7 +206,7 @@ for (var i = 0; i < n_videos * n_videos_per_block / n_break; i++) {  // add qust
     }
     // id of condition
     cond_num = Math.floor(i / 2);
-    if (conditions[cond_num] < conditions[cond_num + 1]) { // order smaller -> larger
+    if (conditions[cond_num * 2] < conditions[cond_num * 2 + 1]) { // order smaller -> larger
         cond_num_1 = cond_num;
         cond_num_2 = cond_num + 1;
     } else {
