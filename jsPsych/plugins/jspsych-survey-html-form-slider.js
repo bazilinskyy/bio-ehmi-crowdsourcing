@@ -69,7 +69,7 @@ jsPsych.plugins['survey-html-form-slider'] = (function() {
 
     if(trial.require_movement){
       display_element.querySelector('#jspsych-html-slider-response-response').addEventListener('change', function(){
-        display_element.querySelector('#jspsych-html-slider-response-next').disabled = false;
+        display_element.querySelector('#jspsych-survey-html-form-next').disabled = false;
       })
     }
 
