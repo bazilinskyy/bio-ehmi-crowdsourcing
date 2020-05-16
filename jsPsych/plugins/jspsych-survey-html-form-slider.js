@@ -87,6 +87,7 @@ jsPsych.plugins['survey-html-form-slider'] = (function() {
       display_element.querySelector('#jspsych-html-slider-response-response-4').addEventListener('change', function(){
         slider_4_moved = true;
       })
+      console.log(slider_1_moved, slider_2_moved, slider_3_moved, slider_4_moved);
       // check if all 4 sliders were moved
       if (slider_1_moved && slider_2_moved && slider_3_moved && slider_4_moved) {
         display_element.querySelector('#jspsych-survey-html-form-next').disabled = false;
