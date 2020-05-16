@@ -12,6 +12,12 @@ jsPsych.plugins['survey-html-form-slider'] = (function() {
 
   var plugin = {};
 
+  // hacky, but whatever [javascript...] :)
+  var slider_1_moved = false;
+  var slider_2_moved = false;
+  var slider_3_moved = false;
+  var slider_4_moved = false;
+
   plugin.info = {
     name: 'survey-html-form-slider',
     description: '',
@@ -67,10 +73,24 @@ jsPsych.plugins['survey-html-form-slider'] = (function() {
     html += '</form>'
     display_element.innerHTML = html;
 
+    // for 4 sliders
     if(trial.require_movement){
-      display_element.querySelector('#jspsych-html-slider-response-response').addEventListener('change', function(){
-        display_element.querySelector('#jspsych-survey-html-form-next').disabled = false;
+      display_element.querySelector('#jspsych-html-slider-response-response-1').addEventListener('change', function(){
+        slider_1_moved = true;
       })
+      display_element.querySelector('#jspsych-html-slider-response-response-2').addEventListener('change', function(){
+        slider_2_moved = true;
+      })
+      display_element.querySelector('#jspsych-html-slider-response-response-3').addEventListener('change', function(){
+        slider_3_moved = true;
+      })
+      display_element.querySelector('#jspsych-html-slider-response-response-4').addEventListener('change', function(){
+        slider_4_moved = true;
+      })
+      // check if all 4 sliders were moved
+      if (slider_1_moved && slider_2_moved && slider_3_moved && slider_4_moved) {
+        display_element.querySelector('#jspsych-survey-html-form-next').disabled = false;
+      }
     }
 
     display_element.querySelector('#jspsych-survey-html-form').addEventListener('submit', function(event) {
