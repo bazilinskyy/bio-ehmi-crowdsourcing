@@ -62,7 +62,7 @@ jsPsych.plugins['survey-html-form-slider'] = (function() {
     html += trial.html;
 
     // add submit button
-    html += '<input type="submit" id="jspsych-survey-html-form-next" class="jspsych-btn jspsych-survey-html-form" '+ (trial.require_movement ? "disabled" : "") + '>'+trial.button_label+'</button>';
+    html += '<input type="submit" id="jspsych-survey-html-form-next" class="jspsych-btn jspsych-survey-html-form" '+ (trial.require_movement ? "disabled" : "") + ' value="'+trial.button_label+'"></input>';
 
     html += '</form>'
     display_element.innerHTML = html;
