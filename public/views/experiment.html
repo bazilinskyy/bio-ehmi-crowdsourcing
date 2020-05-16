@@ -217,7 +217,7 @@ for (var i = 0; i < n_videos * n_videos_per_block / n_break; i++) {  // add qust
         cond_num_1 = cond_num + 1;
         cond_num_2 = cond_num;
     }
-    console.log('cond_num ', cond_num, cond_num_1, cond_num_2, conditions[cond_num_1 - 1], conditions[cond_num_2 - 1], condition_images[conditions[cond_num_1 - 1]], condition_images[conditions[cond_num_2 - 1]]);
+    console.log('cond_num ', cond_num, cond_num_1 - 1, cond_num_2 - 1, conditions[cond_num_1 - 1], conditions[cond_num_2 - 1], condition_images[conditions[cond_num_1 - 1]], condition_images[conditions[cond_num_2 - 1]]);
     // add block to array
     sliders_blocks.push({
         type: 'survey-html-form-slider',
