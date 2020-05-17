@@ -105,8 +105,10 @@ jsPsych.plugins['survey-html-form-ranking'] = (function() {
             var unique_values = rankings_given[row_event].filter((item, i, ar) => ar.indexOf(item) === i);
             console.log(row_event, item_event, unique_values);
             if (unique_values.length === trial.items_per_row) {  // check if all items in array are unique
+              console.log(unique_values.length, 'enabled');
               display_element.querySelector('#jspsych-survey-html-form-next').disabled = false;
             } else { // if not unique, make button disables
+              console.log(unique_values.length, 'disabled');
               display_element.querySelector('#jspsych-survey-html-form-next').disabled = true;
             }
           });
