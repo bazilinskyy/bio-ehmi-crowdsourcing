@@ -61,15 +61,15 @@ jsPsych.plugins['survey-html-form-ranking'] = (function() {
     }
   }
 
-  // hacky, but whatever [javascript...] :)
-  if(trial.unique_values){
-  var rankings_given = [];
-    for(var i = 0; i < 1; i++) {
-      rankings_given[i] = new Array(trial.items_per_row);
-    }
-  }
-
   plugin.trial = function(display_element, trial) {
+
+    // hacky, but whatever [javascript...] :)
+    if(trial.unique_values){
+    var rankings_given = [];
+      for(var i = 0; i < 1; i++) {
+        rankings_given[i] = new Array(trial.items_per_row);
+      }
+    }
 
     var html = '';
     // show preamble text
