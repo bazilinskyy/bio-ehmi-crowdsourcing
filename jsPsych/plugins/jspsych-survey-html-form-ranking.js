@@ -8,18 +8,12 @@
  *
  */
 
-jsPsych.plugins['survey-html-form-slider'] = (function() {
+jsPsych.plugins['survey-html-form-ranking'] = (function() {
 
   var plugin = {};
 
-  // hacky, but whatever [javascript...] :)
-  var slider_1_moved = false;
-  var slider_2_moved = false;
-  var slider_3_moved = false;
-  var slider_4_moved = false;
-
   plugin.info = {
-    name: 'survey-html-form-slider',
+    name: 'survey-html-form-ranking',
     description: '',
     parameters: {
       html: {
@@ -45,12 +39,33 @@ jsPsych.plugins['survey-html-form-slider'] = (function() {
         pretty_name: 'Data As Array',
         default:  false,
         description: 'Retrieve the data as an array e.g. [{name: "INPUT_NAME", value: "INPUT_VALUE"}, ...] instead of an object e.g. {INPUT_NAME: INPUT_VALUE, ...}.'
-      }, require_movement: {
-        type: jsPsych.plugins.parameterType.BOOL,
-        pretty_name: 'Require movement',
-        default: false,
-        description: 'If true, the participant will have to move the sliders before continuing.'
       },
+      unique_values: {
+        type: jsPsych.plugins.parameterType.BOOL,
+        pretty_name: 'Unique values',
+        default: false,
+        description: 'If true, the participant will have to input unique values in each row.'
+      },
+      rows: {
+        type: jsPsych.plugins.parameterType.INT,
+        pretty_name: 'Number of row',
+        default: '',
+        description: 'Number of rows in ranking.'
+      },
+      items_per_row: {
+        type: jsPsych.plugins.parameterType.INT,
+        pretty_name: 'Items per row',
+        default: '',
+        description: 'Number of items per row in ranking.'
+      }
+    }
+  }
+
+  // hacky, but whatever [javascript...] :)
+  if(trial.unique_values){
+  var rankings_given = [];
+    for(var i = 0; i < 1; i++) {
+      rankings_given[i] = new Array(trial.items_per_row);
     }
   }
 
@@ -68,56 +83,10 @@ jsPsych.plugins['survey-html-form-slider'] = (function() {
     html += trial.html;
 
     // add submit button
-    html += '<input type="submit" id="jspsych-survey-html-form-next" class="jspsych-btn jspsych-survey-html-form" '+ (trial.require_movement ? "disabled" : "") + ' value="'+trial.button_label+'"></input>';
+    html += '<input type="submit" id="jspsych-survey-html-form-next" class="jspsych-btn jspsych-survey-html-form" '+ (trial.unique_values ? "disabled" : "") + ' value="'+trial.button_label+'"></input>';
 
     html += '</form>'
     display_element.innerHTML = html;
-
-    // for 6 sliders
-    if(trial.require_movement){
-      display_element.querySelector('#jspsych-html-slider-response-response-1').addEventListener('change', function(){
-        slider_1_moved = true;
-        // check if all 4 sliders were moved
-        if (slider_1_moved && slider_2_moved && slider_3_moved && slider_4_moved && slider_5_moved && slider_6_moved) {
-          display_element.querySelector('#jspsych-survey-html-form-next').disabled = false;
-        }
-      })
-      display_element.querySelector('#jspsych-html-slider-response-response-2').addEventListener('change', function(){
-        slider_2_moved = true;
-        // check if all 4 sliders were moved
-        if (slider_1_moved && slider_2_moved && slider_3_moved && slider_4_moved && slider_5_moved && slider_6_moved) {
-          display_element.querySelector('#jspsych-survey-html-form-next').disabled = false;
-        }
-      })
-      display_element.querySelector('#jspsych-html-slider-response-response-3').addEventListener('change', function(){
-        slider_3_moved = true;
-        // check if all 4 sliders were moved
-        if (slider_1_moved && slider_2_moved && slider_3_moved && slider_4_moved && slider_5_moved && slider_6_moved) {
-          display_element.querySelector('#jspsych-survey-html-form-next').disabled = false;
-        }
-      })
-      display_element.querySelector('#jspsych-html-slider-response-response-4').addEventListener('change', function(){
-        slider_4_moved = true;
-        // check if all 4 sliders were moved
-        if (slider_1_moved && slider_2_moved && slider_3_moved && slider_4_moved && slider_5_moved && slider_6_moved) {
-          display_element.querySelector('#jspsych-survey-html-form-next').disabled = false;
-        }
-      })
-      display_element.querySelector('#jspsych-html-slider-response-response-5').addEventListener('change', function(){
-        slider_5_moved = true;
-        // check if all 4 sliders were moved
-        if (slider_1_moved && slider_2_moved && slider_3_moved && slider_4_moved && slider_5_moved && slider_6_moved) {
-          display_element.querySelector('#jspsych-survey-html-form-next').disabled = false;
-        }
-      })
-      display_element.querySelector('#jspsych-html-slider-response-response-6').addEventListener('change', function(){
-        slider_6_moved = true;
-        // check if all 4 sliders were moved
-        if (slider_1_moved && slider_2_moved && slider_3_moved && slider_4_moved && slider_5_moved && slider_6_moved) {
-          display_element.querySelector('#jspsych-survey-html-form-next').disabled = false;
-        }
-      })
-    }
 
     display_element.querySelector('#jspsych-survey-html-form').addEventListener('submit', function(event) {
       // don't submit form
@@ -146,6 +115,25 @@ jsPsych.plugins['survey-html-form-slider'] = (function() {
     });
 
     var startTime = performance.now();
+
+    // check if all entries in row are unique
+    if(trial.unique_values){
+      for (var row = 0; row < trial.rows; row++) { // iterate over rows
+        for (var item = 0; item < trial.items_per_row; item++) {  // iterate over items in each row
+          display_element.querySelector('#input' + row + '-' + item).addEventListener('change', function(){
+            rankings_given[row][item] = display_element.querySelector('#input' + row + '-' + item).value;
+            // check if all 4 sliders were moved
+            var unique_values = rankings_given[row].filter((item, i, ar) => ar.indexOf(item) === i);
+            console.log(row, item, unique_values);
+            if (unique_values.length = trial.items_per_row) {  // check if all items in array are unique
+              display_element.querySelector('#jspsych-survey-html-form-next').disabled = false;
+            } else { // if not unique, make button disables
+              display_element.querySelector('#jspsych-survey-html-form-next').disabled = true;
+            }
+          })
+        }
+      }
+    }
   };
 
   /*!
