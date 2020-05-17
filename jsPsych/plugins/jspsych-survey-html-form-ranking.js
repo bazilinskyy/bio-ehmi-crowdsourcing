@@ -95,9 +95,13 @@ jsPsych.plugins['survey-html-form-ranking'] = (function() {
           console.log('#ranking-input-' + row + '-' + item);
           display_element.querySelector('#ranking-input-' + row + '-' + item).addEventListener('input', function(){
             update_values(row, item);
-            var row_event = row;
-            var item_event = item;
+            
+            var numberPattern = /\d+/g;
+            numbers = this.id.match(numberPattern);
+            var row_event = numbers[0];
+            var item_event = numbers[1];
             console.log(this.id, this.value, row_event, item_event);
+
             rankings_given[row_event][item_event] = this.value;
             // check if all 4 sliders were moved
             var unique_values = rankings_given[row_event].filter((item, i, ar) => ar.indexOf(item) === i);
