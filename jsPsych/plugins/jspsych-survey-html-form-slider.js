@@ -93,7 +93,7 @@ jsPsych.plugins['survey-html-form-slider'] = (function() {
     // check if all entries in row are unique
     if(trial.require_movement){
       for (var item = 0; item < trial.items; item++) { // iterate over rows
-        display_element.querySelector('jspsych-html-slider-response-response-' + item).addEventListener('change', function(){            
+        display_element.querySelector('slider-' + item).addEventListener('change', function(){            
           var numberPattern = /\d+/g;
           numbers = this.id.match(numberPattern);
           var item_event = numbers[0];  // extract item from id
