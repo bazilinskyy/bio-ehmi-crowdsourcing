@@ -66,7 +66,7 @@ jsPsych.plugins['survey-html-form-ranking'] = (function() {
     // hacky, but whatever [javascript...] :)
     if(trial.unique_values){
     var rankings_given = [];
-      for(var i = 0; i < 1; i++) {
+      for(var i = 0; i < trial.rows; i++) {
         rankings_given[i] = new Array(trial.items_per_row);
       }
     }
