@@ -107,10 +107,10 @@ jsPsych.plugins['survey-html-form-ranking'] = (function() {
             }
             // update status of button
             if (unique_values_length === trial.rows * trial.items_per_row) {  // check if all items in array are unique
-              console.log(this.id, this.value, row_event, item_event, rankings_given, unique_values_length, 'enabled');
+              console.log(this.id, this.value, row_event, item_event, rankings_given, unique_values_length, 'button for ranking enabled');
               display_element.querySelector('#jspsych-survey-html-form-next').disabled = false;
             } else { // if not unique, make button disables
-              console.log(this.id, this.value, row_event, item_event, rankings_given, unique_values_length, 'disabled');
+              console.log(this.id, this.value, row_event, item_event, rankings_given, unique_values_length, 'button for ranking disabled');
               display_element.querySelector('#jspsych-survey-html-form-next').disabled = true;
             }
           });

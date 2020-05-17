@@ -47,16 +47,31 @@ jsPsych.plugins['survey-html-form-slider'] = (function() {
         pretty_name: 'Data As Array',
         default:  false,
         description: 'Retrieve the data as an array e.g. [{name: "INPUT_NAME", value: "INPUT_VALUE"}, ...] instead of an object e.g. {INPUT_NAME: INPUT_VALUE, ...}.'
-      }, require_movement: {
+      },
+      require_movement: {
         type: jsPsych.plugins.parameterType.BOOL,
         pretty_name: 'Require movement',
         default: false,
         description: 'If true, the participant will have to move the sliders before continuing.'
       },
+      items: {
+        type: jsPsych.plugins.parameterType.INT,
+        pretty_name: 'Number of sliders',
+        default: '',
+        description: 'Number of sliders to show in the form.'
+      }
     }
   }
 
   plugin.trial = function(display_element, trial) {
+    // array to store flags of movement of sliders
+    // hacky, but whatever [javascript...] :)
+    if (trial.require_movement){
+    var sliders_moved = [];
+      for(var i = 0; i < trial.items; i++) {
+        sliders_moved[i] = 0;
+      }
+    }
 
     var html = '';
     // show preamble text
@@ -74,6 +89,31 @@ jsPsych.plugins['survey-html-form-slider'] = (function() {
 
     html += '</form>'
     display_element.innerHTML = html;
+
+    // check if all entries in row are unique
+    if(trial.require_movement){
+      for (var itme = 0; row < trial.items; row++) { // iterate over rows
+        display_element.querySelector('jspsych-html-slider-response-response-' + item).addEventListener('change', function(){            
+          var numberPattern = /\d+/g;
+          numbers = this.id.match(numberPattern);
+          var item_event = numbers[0];  // extract row from id
+          // update flag in the array
+          sliders_moved[item_event] = 1;
+          // get number of sliders moved
+          var sliders_moved_count = 0;
+          for (var i = 0; i < trial.items; i++) {
+             if (sliders_moved[i]) {
+                sliders_moved_count++;
+             }
+          }
+          // update status of button
+          if (sliders_moved_count === trial.items) {  // check if all sliders were moved
+            console.log(this.id, this.value, item_event, sliders_moved, sliders_moved_count, 'button for sliders enabled');
+            display_element.querySelector('#jspsych-survey-html-form-next').disabled = false;
+          }
+        });
+      }
+    }
 
     // for 6 sliders
     if(trial.require_movement){
