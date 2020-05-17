@@ -103,7 +103,7 @@ jsPsych.plugins['survey-html-form-ranking'] = (function() {
             rankings_given[row_event][item_event] = this.value;
             // check if all 4 sliders were moved
             var unique_values = rankings_given[row_event].filter((item, i, ar) => ar.indexOf(item) === i);
-            console.log(row_event, item_event, unique_values);
+            console.log(row_event, item_event, rankings_given, unique_values);
             if (unique_values.length === trial.items_per_row) {  // check if all items in array are unique
               console.log(unique_values.length, 'enabled');
               display_element.querySelector('#jspsych-survey-html-form-next').disabled = false;
