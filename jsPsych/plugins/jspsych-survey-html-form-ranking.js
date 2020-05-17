@@ -118,10 +118,10 @@ jsPsych.plugins['survey-html-form-ranking'] = (function() {
 
     // check if all entries in row are unique
     if(trial.unique_values){
-      for (var row = 0; row < trial.rows; row++) { // iterate over rows
-        for (var item = 0; item < trial.items_per_row; item++) {  // iterate over items in each row
-          console.log('#input' + row + 1 + '-' + item + 1);
-          display_element.querySelector('#input' + row + 1 + '-' + item + 1).addEventListener('change', function(){
+      for (var row = 1; row <= trial.rows; row++) { // iterate over rows
+        for (var item = 1; item <= trial.items_per_row; item++) {  // iterate over items in each row
+          console.log('#input' + row + '-' + item);
+          display_element.querySelector('#input' + row + '-' + item).addEventListener('change', function(){
             rankings_given[row][item] = display_element.querySelector('#input' + row + '-' + item).value;
             // check if all 4 sliders were moved
             var unique_values = rankings_given[row].filter((item, i, ar) => ar.indexOf(item) === i);
