@@ -118,8 +118,8 @@ jsPsych.plugins['survey-html-form-ranking'] = (function() {
 
     // check if all entries in row are unique
     if(trial.unique_values){
-      for (var row = 1; row <= trial.rows; row++) { // iterate over rows
-        for (var item = 1; item <= trial.items_per_row; item++) {  // iterate over items in each row
+      for (var row = 0; row < trial.rows; row++) { // iterate over rows
+        for (var item = 0; item < trial.items_per_row; item++) {  // iterate over items in each row
           console.log('#input' + row + '-' + item);
           display_element.querySelector('#input' + row + '-' + item).addEventListener('change', function(){
             rankings_given[row][item] = display_element.querySelector('#input' + row + '-' + item).value;
