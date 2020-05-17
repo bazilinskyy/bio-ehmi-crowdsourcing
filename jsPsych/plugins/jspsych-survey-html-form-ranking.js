@@ -101,14 +101,20 @@ jsPsych.plugins['survey-html-form-ranking'] = (function() {
             console.log(this.id, this.value, row_event, item_event);
 
             rankings_given[row_event][item_event] = this.value;
-            // check if all 4 sliders were moved
-            var unique_values = rankings_given[row_event].filter((item, i, ar) => ar.indexOf(item) === i);
+
+            // get number of unique elements in all rows
+            var unique_values_length = 0;
+            for (var row = 0; row < trial.rows; row++) {
+               unique_values = rankings_given[row].filter((item, i, ar) => ar.indexOf(item) === i);
+               unique_values_length = unique_values_length + unique_values.length;
+            }
+            
             console.log(row_event, item_event, rankings_given, unique_values);
-            if (unique_values.length === trial.items_per_row) {  // check if all items in array are unique
-              console.log(unique_values.length, 'enabled');
+            if (unique_values_length === trial.rows * trial.items_per_row) {  // check if all items in array are unique
+              console.log(unique_values_length, 'enabled');
               display_element.querySelector('#jspsych-survey-html-form-next').disabled = false;
             } else { // if not unique, make button disables
-              console.log(unique_values.length, 'disabled');
+              console.log(unique_values_length, 'disabled');
               display_element.querySelector('#jspsych-survey-html-form-next').disabled = true;
             }
           });
