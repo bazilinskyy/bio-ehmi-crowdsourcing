@@ -106,7 +106,7 @@ jsPsych.plugins['survey-html-form-ranking'] = (function() {
             } else { // if not unique, make button disables
               display_element.querySelector('#jspsych-survey-html-form-next').disabled = true;
             }
-          })
+          }, false);
         }
       }
     }
