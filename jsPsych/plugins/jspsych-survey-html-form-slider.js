@@ -17,6 +17,8 @@ jsPsych.plugins['survey-html-form-slider'] = (function() {
   var slider_2_moved = false;
   var slider_3_moved = false;
   var slider_4_moved = false;
+  var slider_5_moved = false;
+  var slider_6_moved = false;
 
   plugin.info = {
     name: 'survey-html-form-slider',
