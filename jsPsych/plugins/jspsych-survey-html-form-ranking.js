@@ -93,7 +93,8 @@ jsPsych.plugins['survey-html-form-ranking'] = (function() {
       for (var row = 0; row < trial.rows; row++) { // iterate over rows
         for (var item = 0; item < trial.items_per_row; item++) {  // iterate over items in each row
           console.log('#ranking-input-' + row + '-' + item);
-          display_element.querySelector('#ranking-input-' + row + '-' + item).addEventListener('input', function(event){
+          display_element.querySelector('#ranking-input-' + row + '-' + item).addEventListener('input', function(){
+            update_values(row, item);
             var row_event = row;
             var item_event = item;
             console.log(this.value, row_event, item_event);
@@ -139,6 +140,10 @@ jsPsych.plugins['survey-html-form-ranking'] = (function() {
 
     var startTime = performance.now();
   };
+
+  function update_values(row, item) {
+    console.log(row, item);
+  }
 
   /*!
    * Serialize all form data into an array
