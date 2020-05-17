@@ -92,29 +92,25 @@ jsPsych.plugins['survey-html-form-ranking'] = (function() {
     if(trial.unique_values){
       for (var row = 0; row < trial.rows; row++) { // iterate over rows
         for (var item = 0; item < trial.items_per_row; item++) {  // iterate over items in each row
-          console.log('#ranking-input-' + row + '-' + item);
           display_element.querySelector('#ranking-input-' + row + '-' + item).addEventListener('input', function(){            
             var numberPattern = /\d+/g;
             numbers = this.id.match(numberPattern);
-            var row_event = numbers[0];
-            var item_event = numbers[1];
-            console.log(this.id, this.value, row_event, item_event);
+            var row_event = numbers[0];  // extract row from id
+            var item_event = numbers[1];  // extract item from id
             // update input value
             rankings_given[row_event][item_event] = this.value;
-
             // get number of unique elements in all rows
             var unique_values_length = 0;
             for (var row = 0; row < trial.rows; row++) {
                unique_values = rankings_given[row].filter((item, i, ar) => ar.indexOf(item) === i);
                unique_values_length = unique_values_length + unique_values.length;
             }
-            
-            console.log(row_event, item_event, rankings_given, unique_values);
+            // update status of button
             if (unique_values_length === trial.rows * trial.items_per_row) {  // check if all items in array are unique
-              console.log(unique_values_length, 'enabled');
+              console.log(this.id, this.value, row_event, item_event, rankings_given, unique_values_length, 'enabled');
               display_element.querySelector('#jspsych-survey-html-form-next').disabled = false;
             } else { // if not unique, make button disables
-              console.log(unique_values_length, 'disabled');
+              console.log(this.id, this.value, row_event, item_event, rankings_given, unique_values_length, 'disabled');
               display_element.querySelector('#jspsych-survey-html-form-next').disabled = true;
             }
           });
