@@ -97,7 +97,7 @@ jsPsych.plugins['survey-html-form-ranking'] = (function() {
             update_values(row, item);
             var row_event = row;
             var item_event = item;
-            console.log(this.value, row_event, item_event);
+            console.log(this.id, this.value, row_event, item_event);
             rankings_given[row_event][item_event] = this.value;
             // check if all 4 sliders were moved
             var unique_values = rankings_given[row_event].filter((item, i, ar) => ar.indexOf(item) === i);
