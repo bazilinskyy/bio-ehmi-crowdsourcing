@@ -99,7 +99,7 @@ jsPsych.plugins['survey-html-form-ranking'] = (function() {
             var row_event = numbers[0];
             var item_event = numbers[1];
             console.log(this.id, this.value, row_event, item_event);
-
+            // update input value
             rankings_given[row_event][item_event] = this.value;
 
             // get number of unique elements in all rows
