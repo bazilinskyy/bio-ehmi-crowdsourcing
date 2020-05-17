@@ -88,6 +88,27 @@ jsPsych.plugins['survey-html-form-ranking'] = (function() {
     html += '</form>'
     display_element.innerHTML = html;
 
+    // check if all entries in row are unique
+    if(trial.unique_values){
+      for (var row = 0; row < trial.rows; row++) { // iterate over rows
+        for (var item = 0; item < trial.items_per_row; item++) {  // iterate over items in each row
+          console.log('#ranking-input-' + row + '-' + item);
+          console.log(document.getElementById('#ranking-input-' + row + '-' + item));
+          display_element.querySelector('#ranking-input-' + row + '-' + item).addEventListener('input', function(){
+            rankings_given[row][item] = display_element.querySelector('#ranking-input-' + row + '-' + item).value;
+            // check if all 4 sliders were moved
+            var unique_values = rankings_given[row].filter((item, i, ar) => ar.indexOf(item) === i);
+            console.log(row, item, unique_values);
+            if (unique_values.length = trial.items_per_row) {  // check if all items in array are unique
+              display_element.querySelector('#jspsych-survey-html-form-next').disabled = false;
+            } else { // if not unique, make button disables
+              display_element.querySelector('#jspsych-survey-html-form-next').disabled = true;
+            }
+          })
+        }
+      }
+    }
+
     display_element.querySelector('#jspsych-survey-html-form').addEventListener('submit', function(event) {
       // don't submit form
       event.preventDefault();
@@ -115,27 +136,6 @@ jsPsych.plugins['survey-html-form-ranking'] = (function() {
     });
 
     var startTime = performance.now();
-
-    // check if all entries in row are unique
-    if(trial.unique_values){
-      for (var row = 0; row < trial.rows; row++) { // iterate over rows
-        for (var item = 0; item < trial.items_per_row; item++) {  // iterate over items in each row
-          console.log('#ranking-input-' + row + '-' + item);
-          console.log(document.getElementById('#ranking-input-' + row + '-' + item));
-          display_element.querySelector('#ranking-input-' + row + '-' + item).addEventListener('input', function(){
-            rankings_given[row][item] = display_element.querySelector('#ranking-input-' + row + '-' + item).value;
-            // check if all 4 sliders were moved
-            var unique_values = rankings_given[row].filter((item, i, ar) => ar.indexOf(item) === i);
-            console.log(row, item, unique_values);
-            if (unique_values.length = trial.items_per_row) {  // check if all items in array are unique
-              display_element.querySelector('#jspsych-survey-html-form-next').disabled = false;
-            } else { // if not unique, make button disables
-              display_element.querySelector('#jspsych-survey-html-form-next').disabled = true;
-            }
-          })
-        }
-      }
-    }
   };
 
   /*!
