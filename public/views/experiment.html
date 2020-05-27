@@ -109,7 +109,6 @@ for (var i = 1; i <= n_videos; i++) {
 		video_ids.push(i);
 	}
 }
-console.log('video_ids ', video_ids);
 // shuffle array with video IDs
 var video_ids_blocks = [];  // all groups shuffled
 var video_ids_1 =shuffle(video_ids.slice(0, 2 * n_repeat)) ;  // group 1
@@ -118,12 +117,6 @@ var video_ids_3 = shuffle(video_ids.slice(4 * n_repeat, 6 * n_repeat));  // grou
 var video_ids_4 = shuffle(video_ids.slice(6 * n_repeat, 8 * n_repeat));  // group 4
 var video_ids_5 = shuffle(video_ids.slice(8 * n_repeat, 10 * n_repeat));  // group 5
 var video_ids_6 = shuffle(video_ids.slice(10 * n_repeat));  // group 6
-console.log('video_ids_1 ', video_ids_1);
-console.log('video_ids_2 ', video_ids_2);
-console.log('video_ids_3 ', video_ids_3);
-console.log('video_ids_4 ', video_ids_4);
-console.log('video_ids_5 ', video_ids_5);
-console.log('video_ids_6 ', video_ids_6);
 video_ids_blocks.push(video_ids_1);
 video_ids_blocks.push(video_ids_2);
 video_ids_blocks.push(video_ids_3);
@@ -139,14 +132,9 @@ conditions_ordered.push(video_ids_blocks[2].filter(onlyUnique));
 conditions_ordered.push(video_ids_blocks[3].filter(onlyUnique));
 conditions_ordered.push(video_ids_blocks[4].filter(onlyUnique));
 conditions_ordered.push(video_ids_blocks[5].filter(onlyUnique));
-console.log('conditions_ordered ', conditions_ordered);
 conditions = conditions_ordered[0].concat(conditions_ordered[1], conditions_ordered[2], conditions_ordered[3], conditions_ordered[4], conditions_ordered[5]);
-console.log('conditions ', conditions);
-console.log('condition images ', condition_images);
 
-console.log('video_ids_blocks ', video_ids_blocks);
 video_ids = video_ids_blocks[0].concat(video_ids_blocks[1], video_ids_blocks[2], video_ids_blocks[3], video_ids_blocks[4], video_ids_blocks[5]);
-console.log('video_ids ', video_ids);
 
 // build array with videos with stimuli
 for (var i = 0; i < n_videos * n_videos_per_block; i++) {
@@ -224,7 +212,6 @@ for (var i = 0; i < n_videos * n_videos_per_block / n_break; i++) {  // add qust
         cond_num_1 = cond_num + 1;
         cond_num_2 = cond_num;
     }
-    console.log('cond_num ', cond_num, cond_num_1, cond_num_2, conditions[cond_num_1], conditions[cond_num_2], condition_images[conditions[cond_num_1] - 1], condition_images[conditions[cond_num_2] - 1]);
     // add block to array
     sliders_blocks.push({
         type: 'survey-html-form-slider',
@@ -249,21 +236,6 @@ var video_example_2 = {
     sources: [video_pfefix + 'example_2.mp4'],
     prompt: '<p>Watch this video with an example of a communication feature.</p>',
 };
-// final questionnaire
-// var multi_choice_block_horizontal = {
-//   type: 'survey-multi-choice',
-//   questions: [
-//     {prompt: "I like vegetables", options: page_1_options, required: true, horizontal: true,}, 
-//     {prompt: "I like fruit", options: page_2_options, required: false, horizontal: true}
-//   ],
-// };
-// var questions_end = {
-//   type: 'survey-text',
-//   questions: [
-//     {prompt: "How old are you?", rows: 5, columns: 40}, 
-//     {prompt: "Where were you born?", rows: 3, columns: 50}
-//   ],
-// };
 var str_yield = 'Car letting you cross';
 var str_continue = 'Car continuing to drive';
 var questions_end = {
@@ -295,9 +267,6 @@ var save_data_block = {
 }
 // create experiment timeline array
 var timeline = [];
-// timeline.push(sliders_blocks[0]);
-// timeline.push(questions_end);
-// timeline.push(save_data_block);
 timeline.push(instructions_block);
 timeline.push(video_example_1);
 timeline.push(video_example_2);
@@ -311,7 +280,6 @@ for (var i = 0; i < n_videos * n_repeat / n_videos_per_block; i++) {
 	    timeline.push(continue_block);
         timeline.push(image_block);  // page with an image asking to press the key
         timeline.push(video_stimuli[i * n_videos_per_block + j]);  // page with the stimulus
-        console.log(i, j, i * n_videos_per_block + j, video_stimuli[i * n_videos_per_block + j]);
     }
     // questions after each block with stimuli
     if (i % 2 == 1) {
@@ -319,7 +287,6 @@ for (var i = 0; i < n_videos * n_repeat / n_videos_per_block; i++) {
 	    // timeline.push(slider_block_2);
 	    // timeline.push(sliders_block);
         timeline.push(sliders_blocks[Math.floor(i / 2)]);
-        console.log(Math.floor(i / 2), sliders_blocks[Math.floor(i / 2)]);
 	}
 	// add final questionnaire in the
 	if (i == 11) {
@@ -332,11 +299,6 @@ for (var i = 0; i < n_videos * n_repeat / n_videos_per_block; i++) {
 	    timeline.push(between_blocks[i]);
 	}
 }
-console.log(video_ids);
-console.log(between_blocks);
-console.log(video_stimuli);
-console.log(timeline);
-console.log(sliders_blocks);
 /* Start the experiment */
 jsPsych.init({
 	// auto_preload: false,
