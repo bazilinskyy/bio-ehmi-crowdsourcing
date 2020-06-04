@@ -154,7 +154,7 @@ for (var i = 0; i < n_videos * n_videos_per_block; i++) {
         }
     });
 }
-// black with text to continue before showing the image
+// continue before showing the image
 var continue_block = {
     type: 'html-keyboard-response',
     stimulus: '<p>Press \'C\' to continue to the next video.</p>',
@@ -267,6 +267,7 @@ var save_data_block = {
 }
 // create experiment timeline array
 var timeline = [];
+timeline.push(questions_end);
 timeline.push(instructions_block);
 timeline.push(video_example_1);
 timeline.push(video_example_2);
@@ -288,7 +289,7 @@ for (var i = 0; i < n_videos * n_repeat / n_videos_per_block; i++) {
 	    // timeline.push(sliders_block);
         timeline.push(sliders_blocks[Math.floor(i / 2)]);
 	}
-	// add final questionnaire in the
+	// add final questionnaire
 	if (i == 11) {
 		timeline.push(questions_end);
 	}
