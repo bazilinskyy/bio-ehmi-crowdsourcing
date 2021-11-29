@@ -1,5 +1,4 @@
 Crowdsourced experiment on bio-inpired interfaces for automated vehicles
 =======
-Frontend implementation of the noticeability and annoyance of synthetic sound signals for electric vehicles.
-
-You may find the article with results at http://doi.org/10.1016/j.trf.2021.03.021.
+The heroku-side code for expeiment described in the article:
+> Oudshoorn, M. P. J., De Winter, J. C. F., Bazilinskyy, P., & Dodou, D. (2021). Bio-inspired intent communication for automated vehicles. Transportation Research Part F: Traffic Psychology and Behaviour, 80, 127-140. https://doi.org/10.1016/j.trf.2021.03.021
